@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Технологии{% endblock %}
+{% block header %}
+Вот что я умею
+{% endblock %}
+{% block content %}
+<div class="row">
+  <aside class="col-12 col-md-3">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        Python
+      </li>
+      <li class="list-group-item">
+        Django
+      </li>
+      <li class="list-group-item">
+        SQL
+      </li>
+      <li class="list-group-item">
+        CSS Bootstrap
+      </li>
+      <li class="list-group-item">
+        Pillow
+      </li>
+      <li class="list-group-item">
+        sorl-thumbnail
+      </li>
+    </ul>
+  </aside>
+  <article class="col-12 col-md-9">
+    <p>
+      Проект создан на Django 2.2.<br>
+      Обработка картинок sorl-thumbnail.<br>
+      Для написания кода использован редактор VScode.<br>
+      Операционная система Ubuntu.<br>
+    </p>
+  </article>
+</div>
+{% endblock %}

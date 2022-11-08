@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %}Об авторе проекта{% endblock %}
+{% block header %}
+Привет, я автор
+{% endblock %}
+{% block content %}
+  <p>
+    Инженер АСУ со стажем, осваиваю разработку.<br>
+    Это мой первый тестовый бэкенд проект.<br>
+    Возможно этот учебный проект поможет мне найти новую работу в будущем.<br>
+    Связаться со мной: <a href="http://www.linkedin.com/in/ilya-savinkin-6002a711">
+      LinkedIn
+    </a><br>
+    Картинка для истории, текущее рабочее место:<br>
+  </p>
+  <img src="{% static 'img/photo_2022-11-06.jpg' %}" class="img-fluid" alt="workplace_photo"">
+{% endblock %}
