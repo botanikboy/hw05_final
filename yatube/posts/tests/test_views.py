@@ -308,7 +308,10 @@ class AuthorSubcribtionTest(TestCase):
         )
         response = self.authorized_client_1.get(reverse('posts:follow_index'))
         first_post_on_page = response.context.get('page_obj')[0]
-        self.assertEqual(first_post_on_page, Post.objects.filter(author=self.author_2).last())
+        self.assertEqual(
+            first_post_on_page,
+            Post.objects.filter(author=self.author_2).last()
+        )
         self.authorized_client_1.get(
             reverse('posts:profile_unfollow', args=['second_auth'])
         )
@@ -320,7 +323,10 @@ class AuthorSubcribtionTest(TestCase):
         )
         response = self.authorized_client_1.get(reverse('posts:follow_index'))
         first_post_on_page = response.context.get('page_obj')[0]
-        self.assertNotEqual(first_post_on_page, Post.objects.filter(author=self.author_2).last())
+        self.assertNotEqual(
+            first_post_on_page,
+            Post.objects.filter(author=self.author_2).last()
+        )
 
     def test_new_post_in_follow(self):
         self.authorized_client_1.get(
@@ -342,4 +348,6 @@ class AuthorSubcribtionTest(TestCase):
 
         response = self.authorized_client_2.get(reverse('posts:follow_index'))
         first_post_on_page = response.context.get('page_obj')[0]
-        self.assertNotEqual(first_post_on_page.text, 'Новый пост второго автора')
+        self.assertNotEqual(
+            first_post_on_page.text, 'Новый пост второго автора'
+        )
