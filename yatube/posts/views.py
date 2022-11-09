@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_page
 
-from .models import Post, Group, User, Comment, Follow
+from .models import Post, Group, User, Follow
 from .forms import PostForm, CommentForm
 from .utils import paginator_create
 
@@ -47,10 +47,10 @@ def post_detail(request, post_id):
     form = CommentForm(request.POST or None)
     user = request.user
     if form.is_valid():
-        Comment(
-            text=form.cleaned_data['text'],
-            author=user,
-        ).save()
+        comment = form.save(commit=False)
+        comment.author = user
+        comment.post = post
+        comment.save()
         return redirect('posts/post_detail.html', pk=post_id)
     else:
         context = {'form': form}
@@ -71,12 +71,9 @@ def post_create(request):
     )
     user = request.user
     if form.is_valid():
-        Post(
-            text=form.cleaned_data['text'],
-            author=user,
-            group=form.cleaned_data['group'],
-            image=form.cleaned_data['image'],
-        ).save()
+        post = form.save(commit=False)
+        post.author = user
+        post.save()
         return redirect('posts:profile', user.username)
     else:
         context = {'form': form}
@@ -146,5 +143,6 @@ def profile_follow(request, username):
 def profile_unfollow(request, username):
     user = request.user
     author = get_object_or_404(User, username=username)
-    Follow.objects.get(user=user, author=author).delete()
+    if Follow.objects.filter(user=user, author=author).exists():
+        Follow.objects.get(user=user, author=author).delete()
     return redirect('posts:profile', author.username)
