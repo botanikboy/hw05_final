@@ -30,10 +30,8 @@ def profile(request, username):
     author = get_object_or_404(User, username=username)
     post_list = author.posts.all()
     user = request.user
-    if user.is_authenticated:
-        following = Follow.objects.filter(user=user, author=author).exists()
-    else:
-        following = False
+    following = user.is_authenticated and Follow.objects.filter(
+        user=user, author=author).exists()
     context = {
         'author': author,
         'page_obj': paginator_create(post_list, request.GET.get('page')),
