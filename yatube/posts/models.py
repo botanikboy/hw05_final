@@ -48,6 +48,10 @@ class Post(models.Model):
         null=True,
         help_text='Загрузите картинку'
     )
+    moderated = models.BooleanField(
+        verbose_name='Флаг модерации',
+        default=False,
+    )
 
     class Meta:
         ordering = ('-pub_date',)

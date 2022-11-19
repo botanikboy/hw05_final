@@ -148,3 +148,4 @@ dmypy.json
 /yatube/static/
 
 /yatube/media/
+/yatube/.env
